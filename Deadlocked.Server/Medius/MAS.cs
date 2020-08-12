@@ -36,8 +36,8 @@ namespace Deadlocked.Server.Medius
                 HandleCommand(msg, client, ref responses);
 
             // 
-            if (shouldEcho)
-                Echo(client, ref responses);
+            //if (shouldEcho && client.Client?.Status == MediusPlayerStatus.MediusPlayerInChatWorld)
+            //    Echo(client, ref responses);
 
             responses.Send(client);
         }
@@ -53,11 +53,6 @@ namespace Deadlocked.Server.Medius
             // 
             switch (message.Id)
             {
-                case RT_MSG_TYPE.RT_MSG_CLIENT_HELLO: //Connecting 1
-
-                    responses.Add(new RT_MSG_SERVER_HELLO());
-
-                    break;
                 case RT_MSG_TYPE.RT_MSG_CLIENT_CRYPTKEY_PUBLIC:
                     {
                         responses.Add(new RT_MSG_SERVER_CRYPTKEY_PEER() { Key = Utils.FromString(Program.KEY) });
@@ -65,19 +60,9 @@ namespace Deadlocked.Server.Medius
                     }
                 case RT_MSG_TYPE.RT_MSG_CLIENT_CONNECT_TCP:
                     {
-                        responses.Add(new RT_MSG_SERVER_CONNECT_REQUIRE() { Contents = Utils.FromString("024802") });
-                        break;
-                    }
-                case RT_MSG_TYPE.RT_MSG_CLIENT_CONNECT_READY_REQUIRE:
-                    {
                         responses.Add(new RT_MSG_SERVER_CRYPTKEY_GAME() { Key = Utils.FromString(Program.KEY) });
-                        responses.Add(new RT_MSG_SERVER_CONNECT_ACCEPT_TCP() { UNK_02 = 0x0A, UNK_03 = 0x00, IP = (client.RemoteEndPoint as IPEndPoint).Address });
-                        break;
-                    }
-                case RT_MSG_TYPE.RT_MSG_CLIENT_CONNECT_READY_TCP:
-                    {
+                        responses.Add(new RT_MSG_SERVER_CONNECT_ACCEPT_TCP() { UNK_00 = 0x01, UNK_01 = 0x08, UNK_02 = 0x10, UNK_03 = 0x00, IP = (client.RemoteEndPoint as IPEndPoint).Address });
                         responses.Add(new RT_MSG_SERVER_CONNECT_COMPLETE() { ARG1 = 0x0001 });
-                        responses.Add(new RT_MSG_SERVER_ECHO());
                         break;
                     }
                 case RT_MSG_TYPE.RT_MSG_SERVER_ECHO:

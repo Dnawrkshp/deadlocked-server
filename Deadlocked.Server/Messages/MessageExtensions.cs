@@ -31,7 +31,8 @@ namespace Deadlocked.Server.Messages
             }
 
             // Condense as much as possible
-            var condensedMsgs = msgs.GroupWhileAggregating(0, (sum, item) => sum + item.Length, (sum, item) => sum < MediusConstants.MEDIUS_MESSAGE_MAXLEN).SelectMany(x => x);
+            //var condensedMsgs = msgs.GroupWhileAggregating(0, (sum, item) => sum + item.Length, (sum, item) => sum < MediusConstants.MEDIUS_MESSAGE_MAXLEN).SelectMany(x => x);
+            var condensedMsgs = msgs.GroupWhileAggregating(0, (sum, item) => sum + item.Length, (sum, item) => sum < 100).SelectMany(x => x);
 
             // 
             foreach (var client in clients)

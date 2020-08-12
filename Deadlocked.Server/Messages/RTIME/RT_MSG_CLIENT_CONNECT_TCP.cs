@@ -15,6 +15,7 @@ namespace Deadlocked.Server.Messages.RTIME
         public override RT_MSG_TYPE Id => RT_MSG_TYPE.RT_MSG_CLIENT_CONNECT_TCP;
 
         // 
+        byte UNK_00;
         public uint ARG1;
         public uint ARG2; // This is like a version identifier or something
         public byte[] UNK;
@@ -27,6 +28,7 @@ namespace Deadlocked.Server.Messages.RTIME
             SessionKey = null;
             AccessToken = null;
 
+            UNK_00 = reader.ReadByte();
             ARG1 = reader.ReadUInt32();
             ARG2 = reader.ReadUInt32();
             UNK = reader.ReadBytes(0x40);
@@ -43,6 +45,7 @@ namespace Deadlocked.Server.Messages.RTIME
             if (UNK == null || UNK.Length != 0x40)
                 throw new InvalidOperationException($"Unable to serialize {Id} UNK because UNK is either null or not 64 bytes long!");
 
+            writer.Write(UNK_00);
             writer.Write(ARG1);
             writer.Write(ARG2);
             writer.Write(UNK);

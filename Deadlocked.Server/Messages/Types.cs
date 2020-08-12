@@ -689,6 +689,11 @@ namespace Deadlocked.Server.Messages
         ClientStatusJoinedSessionMaster,
     }
 
+    public enum LocationIds
+    {
+        Aquatos
+    }
+
     public class NetAddress : IStreamSerializer
     {
         /**

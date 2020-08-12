@@ -18,7 +18,6 @@ namespace Deadlocked.Server.Messages.RTIME
         public byte UNK_02 = 0xEC;
         public byte UNK_03 = 0x10;
         public byte UNK_04 = 0x00;
-        public byte UNK_05 = 0x00;
 
         public ushort UNK_06 = 0x0001;
 
@@ -31,7 +30,6 @@ namespace Deadlocked.Server.Messages.RTIME
             UNK_02 = reader.ReadByte();
             UNK_03 = reader.ReadByte();
             UNK_04 = reader.ReadByte();
-            UNK_05 = reader.ReadByte();
             UNK_06 = reader.ReadUInt16();
 
             IP = reader.ReadIPAddress();
@@ -44,7 +42,6 @@ namespace Deadlocked.Server.Messages.RTIME
             writer.Write(UNK_02);
             writer.Write(UNK_03);
             writer.Write(UNK_04);
-            writer.Write(UNK_05);
             writer.Write(UNK_06);
 
             writer.Write(IP);

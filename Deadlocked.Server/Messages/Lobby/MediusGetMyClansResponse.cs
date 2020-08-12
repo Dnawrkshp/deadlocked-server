@@ -18,7 +18,7 @@ namespace Deadlocked.Server.Messages.Lobby
         public string ClanName; // CLANNAME_MAXLEN
         public int LeaderAccountID;
         public string LeaderAccountName; // ACCOUNTNAME_MAXLEN
-        public string Stats; // CLANSTATS_MAXLEN
+        public byte[] Stats = new byte[MediusConstants.CLANSTATS_MAXLEN];
         public MediusClanStatus Status;
         public bool EndOfList;
 
@@ -35,7 +35,7 @@ namespace Deadlocked.Server.Messages.Lobby
             ClanName = reader.ReadString(MediusConstants.CLANNAME_MAXLEN);
             LeaderAccountID = reader.ReadInt32();
             LeaderAccountName = reader.ReadString(MediusConstants.ACCOUNTNAME_MAXLEN);
-            Stats = reader.ReadString(MediusConstants.CLANSTATS_MAXLEN);
+            Stats = reader.ReadBytes(MediusConstants.CLANSTATS_MAXLEN);
             Status = reader.Read<MediusClanStatus>();
             EndOfList = reader.ReadBoolean();
             reader.ReadBytes(3);
@@ -54,7 +54,7 @@ namespace Deadlocked.Server.Messages.Lobby
             writer.Write(ClanName, MediusConstants.CLANNAME_MAXLEN);
             writer.Write(LeaderAccountID);
             writer.Write(LeaderAccountName, MediusConstants.ACCOUNTNAME_MAXLEN);
-            writer.Write(Stats, MediusConstants.CLANSTATS_MAXLEN);
+            writer.Write(Stats);
             writer.Write(Status);
             writer.Write(EndOfList);
             writer.Write(new byte[3]);
