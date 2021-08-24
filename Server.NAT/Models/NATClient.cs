@@ -140,6 +140,7 @@ namespace Server.NAT.Models
                     buffer.WriteBytes(Program.SERVER_IP.MapToIPv4().GetAddressBytes());
                     buffer.WriteUnsignedShort((ushort)Port);
                     _ = channel.WriteAndFlushAsync(new DatagramPacket(buffer, message.Recipient, message.Sender));
+                    _logger.Info($"Sent {Program.SERVER_IP}:{Port} to {message.Sender}");
                 }
             }
         }

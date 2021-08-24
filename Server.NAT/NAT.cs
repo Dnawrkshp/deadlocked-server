@@ -114,6 +114,7 @@ namespace Server.NAT
             try
             {
                 await Task.WhenAll(_natClients.Select(x => x.Value.Stop()));
+                _natClients.Clear();
                 await _boundChannel.CloseAsync();
             }
             finally
