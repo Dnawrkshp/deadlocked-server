@@ -234,7 +234,7 @@ namespace Server.UnivereInformation
 
                         if (scertClient.MediusVersion >= 109)
                         {
-                            Queue(new RT_MSG_SERVER_CONNECT_REQUIRE() { Contents = Utils.FromString("024802") }, clientChannel);
+                            Queue(new RT_MSG_SERVER_CONNECT_REQUIRE() { PS2Contents = Utils.FromString("024802") }, clientChannel);
                         }
                         else
                         {

@@ -296,7 +296,7 @@ namespace Server.Dme
                         data.ClientObject.ScertId = GenerateNewScertClientId();
                         if (!_scertIdToClient.TryAdd(data.ClientObject.ScertId, data.ClientObject))
                             throw new Exception($"Duplicate scert client id");
-                        Queue(new RT_MSG_SERVER_CONNECT_REQUIRE() { Contents = Utils.FromString("0648024802") }, clientChannel);
+                        Queue(new RT_MSG_SERVER_CONNECT_REQUIRE() { PS2Contents = Utils.FromString("0648024802") }, clientChannel);
                         break;
                     }
                 case RT_MSG_CLIENT_CONNECT_TCP clientConnectTcp:
